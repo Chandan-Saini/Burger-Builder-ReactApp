@@ -6,32 +6,68 @@ import axios from '../../../axios-orders'
 import Input from  '../../../components/UI/Input/Input'
 
 class ContactData extends Component{
-    state={
-        name:'',
-        email:'',
-        address:{
-            street:'',
-            postalCode:''
+  state = {
+    orderForm: {
+      name: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'Your Name'
         },
-        loading:false
-    }
+        value: ''
+      },
+      street: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'Street'
+        },
+        value: ''
+      },
+      zipCode: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'ZIP Code'
+        },
+        value: ''
+      },
+      country: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'Country'
+        },
+        value: ''
+      },
+      email: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'email',
+          placeholder: 'Your E-Mail'
+        },
+        value: ''
+      },
+      deliveryMethod: {
+        elementType: 'select',
+        elementConfig: {
+          options: [
+            { value: 'fastest', displayValue: 'Fastest' },
+            { value: 'cheapest', displayValue: 'Cheapest' }
+          ]
+        },
+        value: ''
+      }
+    },
+    loading: false
+  }
 
     orderHandler=(event)=>{
         event.preventDefault()
         this.setState({loading:true})
   const order={
     ingredients:this.props.ingredients,
-     price:this.props.price,
-     customer:{
-       name:"Chandan kr",
-       address:{
-         street:"demo street",
-         pincode:"201050",
-         country:"india"
-       },
-       email:"test@test.com"
-     },
-     deliveryMethod:'fastest'
+     price:this.props.price
   }
   axios.post('/orders.json',order).then(response=>{
       this.setState({ loading: false });
