@@ -5,10 +5,10 @@ const input=(props)=>{
 
     switch (props.elementType) {
         case ('input'):
-            inputElement=<input className={classes.InputElement} {...props.elementConfig} value={props.value} />
+            inputElement=<input className={classes.InputElement} {...props.elementConfig} value={props.value} onChange={props.changed} />
             break;
         case ('textarea'):
-            inputElement=<textarea className={classes.InputElement} {...props.elementConfig} value={props.value} />
+            inputElement=<textarea className={classes.InputElement} {...props.elementConfig} value={props.value} onChange={props.changed} />
             break;
         case ('select'):
             inputElement = (
@@ -25,7 +25,7 @@ const input=(props)=>{
             );
             break;
         default:
-            inputElement=<input className={classes.InputElement} {...props.elementConfig} value={props.value} />
+            inputElement=<input className={classes.InputElement} {...props.elementConfig} value={props.value} onChange={props.changed} />
     }
 
 
