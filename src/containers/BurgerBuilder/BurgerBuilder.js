@@ -10,15 +10,8 @@ import WithErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import {connect} from 'react-redux'
 
 
-const INGREDIENT_PRICES = {
-  bacon: 20,
-  meat: 30,
-  cheese: 10,
-  salad: 10
-};
 class BurgerBuilder extends Component {
   state = {
-    totalPrice:50,
     purchasable:false,
     purchasing:false,
     loading:false,
@@ -42,37 +35,6 @@ class BurgerBuilder extends Component {
     this.setState({purchasable:sum>0})
   }
 
-  addIngredientHandler=(type)=>{
-       let oldCount=this.state.ingredients[type]
-        const updatedCount=oldCount+1
-        const updatedIngredients={...this.state.ingredients}
-        updatedIngredients[type]=updatedCount
-        
-        const priceAddition=INGREDIENT_PRICES[type]
-        const oldPrice=this.state.totalPrice
-        const newPrice= oldPrice+priceAddition
-        this.setState({totalPrice:newPrice,ingredients:updatedIngredients})
-
-        this.updatePurchaseState(updatedIngredients)
-  }
-
-  removeIngredientHandler=(type)=>{
-    let oldCount = this.state.ingredients[type]
-    if (oldCount <= 0) {
-      return
-    }
-    const updatedCount = oldCount - 1
-    const updatedIngredients = { ...this.state.ingredients }
-    updatedIngredients[type] = updatedCount
-
-    const priceDeduction = INGREDIENT_PRICES[type]
-    const oldPrice = this.state.totalPrice
-    const newPrice = oldPrice - priceDeduction
-    this.setState({ totalPrice: newPrice, ingredients: updatedIngredients })
-
-    this.updatePurchaseState(updatedIngredients)
-}
-
 purchaseHandler=()=>{
   this.setState({purchasing:true})
 }
@@ -91,7 +53,7 @@ purchaseContinueHandler=()=>{
     );
   }
 
-  queryParams.push('price=' + this.state.totalPrice)
+  queryParams.push("price=" + this.props.price);
    const queryString = queryParams.join('&')
 
   this.props.history.push({pathname:"/checkout",
@@ -122,7 +84,7 @@ search:'?' + queryString})
               ingredientAdded={this.props.onIngredientAdded}
               ingredientRemoved={this.props.onIngredientRemoved}
               disabled={disabledInfo}
-              price={this.state.totalPrice}
+              price={this.props.price}
               purchasable={this.state.purchasable}
               ordered={this.purchaseHandler}
             />
@@ -134,7 +96,7 @@ search:'?' + queryString})
             ingredients={this.props.ings}
             purchaseCancelled={this.purchaseCancelHandler}
             purchaseContinued={this.purchaseContinueHandler}
-            price={this.state.totalPrice}
+            price={this.props.price}
           />
         );
     }
@@ -156,7 +118,8 @@ search:'?' + queryString})
 
 const mapStateToProps=state=>{
    return {
-     ings: state.ingredients
+     ings: state.ingredients,
+     price:state.totalPrice
    }
 }
 
