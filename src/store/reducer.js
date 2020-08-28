@@ -2,30 +2,30 @@ import * as actionTypes from './actions'
 
 const initialState = {
   ingredients:{
-      bacon: 0,
-  meat: 0,
+      salad: 0,
+  bacon: 0,
   cheese: 0,
-  salad: 0
+  meat: 0
   },
   totalPrice: 50
 };
  
 const reducer=(state=initialState,action)=>{
-    switch (action.actionTypes) {
-        case actionTypes.ADD_INCREMENT:
-              return{
+    switch (action.type) {
+        case actionTypes.ADD_INGREDIENT:
+              return{ 
                   ...state,
                   ingredients:{
                       ...state.ingredients,
-                      [action.ingredientName]:state.ingredients[action.actionTypes] +1 
+                      [action.ingredientName]:state.ingredients[action.ingredientName] +1 
                   }
               }
-        case actionTypes.REMOVE_INCREMENT:
+        case actionTypes.REMOVE_INGREDIENT:
               return{
                   ...state,
                   ingredients:{
                       ...state.ingredients,
-                      [action.ingredientName]:state.ingredients[action.actionTypes] -1 
+                      [action.ingredientName]:state.ingredients[action.ingredientName] -1 
                   }
               }
          default:
