@@ -5,6 +5,7 @@ import classes from './ContactData.module.css'
 import axios from '../../../axios-orders'
 import Input from  '../../../components/UI/Input/Input'
 import {connect} from 'react-redux';
+import * as actions from "../../../store/actions/index";
 
 class ContactData extends Component {
   state = {
@@ -84,7 +85,7 @@ class ContactData extends Component {
             { value: 'cheapest', displayValue: 'Cheapest' }
           ]
         },
-        value: '',
+        value: 'fastest',
         validation:{},
         valid: true
       }
@@ -168,7 +169,7 @@ class ContactData extends Component {
         <Button btnType="Success" disabled={!this.state.formIsValid}>ORDER</Button>
       </form>
     );
-    if (this.state.loading) {
+    if (this.props.loading) {
       form = <Spinner />;
     }
     return (
@@ -179,12 +180,19 @@ class ContactData extends Component {
     );
   }
 }
-
+ 
 const mapStateToProps = (state) => {
   return {
-    ings: state.ingredients,          //we can also use name here ings as ingredients so that we need not to change  code with ings
-    price: state.totalPrice,
+    ings: state.burgerBuilder.ingredients,          //we can also use name here ings as ingredients so that we need not to change  code with ings
+    price: state.burgerBuilder.totalPrice,
+    loading:state.order.loading
   };
 };
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = dispatch => {
+  return {
+   onOrderBurger:(orderData)=>dispatch(actions.purchaseBurger(orderData))
+  };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(ContactData);
