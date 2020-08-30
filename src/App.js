@@ -1,15 +1,15 @@
-import React,{Component} from 'react';
-import styles from './App.module.css';
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
+
 import Layout from './hoc/Layout/Layout';
-import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder'
-import Checkout from './containers/Checkout/Checkout'
-import {Route,Switch} from 'react-router-dom'
-import Orders from './containers/Orders/Orders'
+import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
+import Checkout from './containers/Checkout/Checkout';
+import Orders from './containers/Orders/Orders';
 
 class App extends Component {
-  render(){
+  render () {
     return (
-      <div className={styles.App}>
+      <div>
         <Layout>
           <Switch>
             <Route path="/checkout" component={Checkout} />
@@ -18,7 +18,8 @@ class App extends Component {
           </Switch>
         </Layout>
       </div>
-    );}
+    );
+  }
 }
 
 export default App;
