@@ -12,17 +12,11 @@ import * as burgerBuilderActions from '../../store/actions/index'
 
 class BurgerBuilder extends Component {
   state = {
-    purchasing:false,
-    loading:false,
-    error:false
+    purchasing:false
   };
 
   componentWillMount(){
-    // axios.get("https://burger-builder23.firebaseio.com/ingredients.json").then(response=>{
-    //    this.setState({ingredients:response.data})
-    // }).catch(error=>{
-    //     this.setState({error:true})
-    // })
+    console.log(this.props);
   }
 
   updatePurchaseState=(ingredients)=>{
@@ -87,9 +81,6 @@ purchaseContinueHandler=()=>{
         );
     }
 
-     if (this.state.loading) {
-       orderSummary = <Spinner />;
-     }
 
     return (
       <Aux>
