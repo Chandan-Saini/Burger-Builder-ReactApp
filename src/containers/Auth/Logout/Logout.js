@@ -5,12 +5,12 @@ import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 
 class Logout extends Component {
-    componentDidMount() {
+    componentDidMount () {
         this.props.onLogout();
     }
 
-    render() {
-        return <Redirect to="/" />;
+    render () {
+        return <Redirect to="/"/>;
     }
 }
 
